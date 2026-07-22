@@ -25,11 +25,30 @@
   <main class="main-content">
     <div class="page-header">
       <h1><i class="fa-solid fa-users"></i> Players</h1>
-      <p>All league players ranked by total points</p>
+      <p>League standings — ranked by total points</p>
     </div>
 
-    <div class="grid-3" id="players-grid">
-      <div class="loading">Loading...</div>
+    <div class="table-wrapper">
+      <table class="standings-table" id="players-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th class="player-name-header">Player</th>
+            <th data-sort="matchesPlayed">Matches <span class="sort-arrow"></span></th>
+            <th data-sort="goals">Goals <span class="sort-arrow"></span></th>
+            <th data-sort="assists">Assists <span class="sort-arrow"></span></th>
+            <th data-sort="saves">Saves <span class="sort-arrow"></span></th>
+            <th data-sort="passes">Passes <span class="sort-arrow"></span></th>
+            <th data-sort="dribbles">Dribbles <span class="sort-arrow"></span></th>
+            <th data-sort="yellowCards">Yellow <span class="sort-arrow"></span></th>
+            <th data-sort="redCards">Red <span class="sort-arrow"></span></th>
+            <th data-sort="totalPoints">Points <span class="sort-arrow"></span></th>
+          </tr>
+        </thead>
+        <tbody id="players-tbody">
+          <tr><td colspan="11"><div class="loading">Loading...</div></td></tr>
+        </tbody>
+      </table>
     </div>
   </main>
 

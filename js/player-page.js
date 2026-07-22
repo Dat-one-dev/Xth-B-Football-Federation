@@ -1,8 +1,29 @@
 import { getUrlParam, formatDate, getInitials } from './utils.js';
 import { getMatchesForPlayer } from './data.js';
-import { computePlayerStats } from './stats.js';
+import { computePlayerStats, computeAllPlayerStats } from './stats.js';
 import { getPlayerRank } from './ranking.js';
 import { setActiveNav, initMobileNav, teamColor } from './ui.js';
+
+function rankClass(rank) {
+  if (rank === 1) return 'gold';
+  if (rank === 2) return 'silver';
+  if (rank === 3) return 'bronze';
+  return 'other';
+}
+
+function rankLabel(rank) {
+  if (rank === 1) return '1st';
+  if (rank === 2) return '2nd';
+  if (rank === 3) return '3rd';
+  return `${rank}th`;
+}
+
+function statColor(key) {
+  if (key === 'yellowCards' || key === 'redCards') return { color: '#ef4444', bg: 'rgba(239, 68, 68, 0.15)' };
+  if (key === 'goals' || key === 'assists' || key === 'saves') return { color: '#10b981', bg: 'rgba(16, 185, 129, 0.15)' };
+  if (key === 'totalPoints') return { color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.15)' };
+  return { color: '#94a3b8', bg: 'rgba(255, 255, 255, 0.05)' };
+}
 
 async function init() {
   setActiveNav('players');
@@ -10,18 +31,19 @@ async function init() {
 
   const playerId = getUrlParam('id');
   if (!playerId) {
-    document.getElementById('player-profile').innerHTML = '<p style="text-align:center;padding:3rem">No player specified.</p>';
+    document.getElementById('player-hero').innerHTML = '<p style="text-align:center;padding:3rem">No player specified.</p>';
     return;
   }
 
-  const [result, rank, matches] = await Promise.all([
+  const [result, rank, matches, allStats] = await Promise.all([
     computePlayerStats(playerId),
     getPlayerRank(playerId),
-    getMatchesForPlayer(playerId)
+    getMatchesForPlayer(playerId),
+    computeAllPlayerStats()
   ]);
 
   if (!result) {
-    document.getElementById('player-profile').innerHTML = '<p style="text-align:center;padding:3rem">Player not found.</p>';
+    document.getElementById('player-hero').innerHTML = '<p style="text-align:center;padding:3rem">Player not found.</p>';
     return;
   }
 
@@ -30,31 +52,86 @@ async function init() {
     ? `<img src="${player.photo}" alt="${player.name}">`
     : getInitials(player.name);
 
-  document.getElementById('player-profile').innerHTML = `
-    <div class="profile-photo">${photo}</div>
-    <div class="profile-info">
-      <h1>${player.name}</h1>
-      <div class="profile-meta">
-        <span><i class="fa-solid fa-ranking-star"></i> Rank: #${rank}</span>
-        <span><i class="fa-solid fa-calendar"></i> ${stats.matchesPlayed} Matches</span>
+  const maxVals = {};
+  const statKeys = ['goals', 'assists', 'saves', 'passes', 'dribbles', 'yellowCards', 'redCards', 'totalPoints'];
+  for (const k of statKeys) {
+    maxVals[k] = Math.max(...allStats.map(s => s[k]), 1);
+  }
+
+  document.getElementById('player-hero').innerHTML = `
+    <div class="player-hero">
+      <div class="player-hero-photo">${photo}</div>
+      <div class="player-hero-info">
+        <h1>${player.name}</h1>
+        <div class="player-hero-meta">
+          <span><i class="fa-solid fa-calendar"></i> ${stats.matchesPlayed} match${stats.matchesPlayed !== 1 ? 'es' : ''}</span>
+          <span><i class="fa-solid fa-trophy" style="color:${rank === 1 ? 'var(--gold)' : rank === 2 ? 'var(--silver)' : rank === 3 ? 'var(--bronze)' : 'var(--text-muted)'}"></i> ${stats.totalPoints} pts</span>
+        </div>
+        <span class="player-hero-rank ${rankClass(rank)}"><i class="fa-solid fa-ranking-star"></i> Rank #${rankLabel(rank)}</span>
       </div>
     </div>`;
 
-  document.getElementById('player-stats').innerHTML = [
-    { icon: 'fa-trophy', value: stats.totalPoints, label: 'Total Points' },
-    { icon: 'fa-futbol', value: stats.goals, label: 'Goals' },
-    { icon: 'fa-paper-plane', value: stats.assists, label: 'Assists' },
-    { icon: 'fa-shield-halved', value: stats.saves, label: 'Saves' },
-    { icon: 'fa-arrow-right-long', value: stats.passes, label: 'Passes' },
-    { icon: 'fa-arrows-left-right', value: stats.dribbles, label: 'Dribbles' },
-    { icon: 'fa-square', value: stats.yellowCards, label: 'Yellow Cards' },
-    { icon: 'fa-square', value: stats.redCards, label: 'Red Cards' }
-  ].map(s => `
-    <div class="stat-card animate-in">
-      <div class="stat-icon"><i class="fa-solid ${s.icon}"></i></div>
-      <div class="stat-value">${s.value}</div>
-      <div class="stat-label">${s.label}</div>
-    </div>`).join('');
+  document.getElementById('player-mini-stats').innerHTML = `
+    <div class="player-stat-mini-grid">
+      <div class="player-stat-mini">
+        <div class="psm-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div class="psm-value">${stats.totalPoints}</div>
+        <div class="psm-label">Points</div>
+      </div>
+      <div class="player-stat-mini">
+        <div class="psm-icon"><i class="fa-solid fa-futbol"></i></div>
+        <div class="psm-value">${stats.goals}</div>
+        <div class="psm-label">Goals</div>
+      </div>
+      <div class="player-stat-mini">
+        <div class="psm-icon"><i class="fa-solid fa-paper-plane"></i></div>
+        <div class="psm-value">${stats.assists}</div>
+        <div class="psm-label">Assists</div>
+      </div>
+      <div class="player-stat-mini">
+        <div class="psm-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="psm-value">${stats.saves}</div>
+        <div class="psm-label">Saves</div>
+      </div>
+      <div class="player-stat-mini">
+        <div class="psm-icon"><i class="fa-solid fa-forward"></i></div>
+        <div class="psm-value">${stats.passes}</div>
+        <div class="psm-label">Passes</div>
+      </div>
+      <div class="player-stat-mini">
+        <div class="psm-icon"><i class="fa-solid fa-arrows-left-right"></i></div>
+        <div class="psm-value">${stats.dribbles}</div>
+        <div class="psm-label">Dribbles</div>
+      </div>
+    </div>`;
+
+  const barStats = [
+    { key: 'totalPoints', label: 'Total Points', icon: 'fa-trophy' },
+    { key: 'goals', label: 'Goals', icon: 'fa-futbol' },
+    { key: 'assists', label: 'Assists', icon: 'fa-paper-plane' },
+    { key: 'saves', label: 'Saves', icon: 'fa-shield-halved' },
+    { key: 'passes', label: 'Passes', icon: 'fa-forward' },
+    { key: 'dribbles', label: 'Dribbles', icon: 'fa-arrows-left-right' },
+    { key: 'yellowCards', label: 'Yellow Cards', icon: 'fa-square' },
+    { key: 'redCards', label: 'Red Cards', icon: 'fa-square' },
+  ];
+
+  document.getElementById('player-stat-bars').innerHTML = `
+    <div class="stat-bars-section">
+      <div class="stat-bars-title"><i class="fa-solid fa-chart-simple"></i> Season Stats</div>
+      ${barStats.map(({ key, label, icon }) => {
+        const val = stats[key];
+        const pct = Math.min((val / maxVals[key]) * 100, 100);
+        const c = statColor(key);
+        return `<div class="stat-bar-item">
+          <div class="stat-bar-label"><i class="fa-solid ${icon}" style="width:16px;color:${c.color}"></i> ${label}</div>
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill" style="width:${pct}%;background:${c.color}"></div>
+          </div>
+          <div class="stat-bar-value" style="color:${c.color}">${val}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
 
   const matchesContainer = document.getElementById('player-matches');
   if (matches.length === 0) {
@@ -70,8 +147,8 @@ async function init() {
     const assists = playerEvents.filter(e => e.type === 'assist').length;
 
     let extra = '';
-    if (goals > 0) extra += `<i class="fa-solid fa-futbol"></i> ${goals} `;
-    if (assists > 0) extra += `<i class="fa-solid fa-paper-plane"></i> ${assists}`;
+    if (goals > 0) extra += `<span style="color:var(--success)"><i class="fa-solid fa-futbol"></i> ${goals} </span>`;
+    if (assists > 0) extra += `<span style="color:var(--accent-blue)"><i class="fa-solid fa-paper-plane"></i> ${assists}</span>`;
 
     const isTeamA = m.teamA.players.includes(playerId);
     const teamName = isTeamA ? m.teamA.name : m.teamB.name;
@@ -82,7 +159,6 @@ async function init() {
       <div class="match-teams">
         <div class="team-info">
           <div class="team-crest" style="background:${colorA}20;color:${colorA}">${m.teamA.name}</div>
-          <div style="font-size:0.7rem;color:var(--text-muted)">Captain: ${m.teamA.captain}</div>
         </div>
         <div class="match-score">
           <span>${m.scoreA}</span>
@@ -91,13 +167,12 @@ async function init() {
         </div>
         <div class="team-info">
           <div class="team-crest" style="background:${colorB}20;color:${colorB}">${m.teamB.name}</div>
-          <div style="font-size:0.7rem;color:var(--text-muted)">Captain: ${m.teamB.captain}</div>
         </div>
       </div>
       <div style="text-align:center;margin-top:0.5rem;font-size:0.75rem">
         <span style="color:var(--text-muted)">Played for </span>
         <span style="color:${teamColorVal};font-weight:600">${teamName}</span>
-        ${extra ? `<span style="margin-left:0.5rem;color:var(--accent-blue)">${extra}</span>` : ''}
+        ${extra ? `<span style="margin-left:0.5rem;display:inline-flex;gap:0.4rem">${extra}</span>` : ''}
       </div>
     </a>`;
   }).join('');
