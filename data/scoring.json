@@ -1,0 +1,10 @@
+{
+  "goal": 5,
+  "assist": 3,
+  "save": 1,
+  "pass": 1,
+  "dribble": 0.5,
+  "yellow": -2,
+  "red": -10,
+  "ownGoal": -5
+}

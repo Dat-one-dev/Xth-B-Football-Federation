@@ -1,0 +1,20 @@
+{
+  "players": [
+    { "id": "p1", "name": "Tanmay", "photo": "" },
+    { "id": "p2", "name": "Arjun", "photo": "" },
+    { "id": "p3", "name": "Raj", "photo": "" },
+    { "id": "p4", "name": "Ayan", "photo": "" },
+    { "id": "p5", "name": "Lucky", "photo": "" },
+    { "id": "p6", "name": "Sumit", "photo": "" },
+    { "id": "p7", "name": "Ishant", "photo": "" },
+    { "id": "p8", "name": "Prikshit", "photo": "" },
+    { "id": "p9", "name": "Shaurya", "photo": "" },
+    { "id": "p10", "name": "Kartik", "photo": "" },
+    { "id": "p11", "name": "Ankit", "photo": "" },
+    { "id": "p12", "name": "Aditya", "photo": "" },
+    { "id": "p13", "name": "Abhisekh", "photo": "" },
+    { "id": "p14", "name": "Shivam", "photo": "" },
+    { "id": "p15", "name": "Ayush", "photo": "" },
+    { "id": "nill", "name": "Nill", "photo": "" }
+  ]
+}

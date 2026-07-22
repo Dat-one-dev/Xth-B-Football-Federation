@@ -1,0 +1,45 @@
+{
+  "matches": [
+    {
+      "id": "m1",
+      "date": "2026-07-22",
+      "teamA": {
+        "name": "Sholay",
+        "captain": "p8",
+        "players": ["p8", "p9", "p10", "p11", "p12", "p14", "p13"]
+      },
+      "teamB": {
+        "name": "Doomsday",
+        "captain": "p2",
+        "players": ["p2", "p1", "p3", "p4", "p5", "p6", "p7", "p15"]
+      },
+      "scoreA": 4,
+      "scoreB": 2,
+      "result": "draw",
+      "resultNote": "OFFENCE by Shivam",
+      "officials": ["Kavyansh", "Ayush Yadav"],
+      "events": [
+        { "order": 1, "type": "goal", "player": "p8", "secondaryPlayer": "p10", "count": 1 },
+        { "order": 2, "type": "assist", "player": "p10", "secondaryPlayer": "" },
+        { "order": 3, "type": "yellow", "player": "p15", "secondaryPlayer": "" },
+        { "order": 4, "type": "goal", "player": "p4", "secondaryPlayer": "", "count": 1 },
+        { "order": 5, "type": "save", "player": "p6", "secondaryPlayer": "", "count": 1 },
+        { "order": 6, "type": "goal", "player": "p8", "secondaryPlayer": "p10", "count": 1 },
+        { "order": 7, "type": "assist", "player": "p10", "secondaryPlayer": "" },
+        { "order": 8, "type": "pass", "player": "p8", "secondaryPlayer": "", "count": 1 },
+        { "order": 9, "type": "goal", "player": "nill", "secondaryPlayer": "p9", "count": 1 },
+        { "order": 10, "type": "assist", "player": "p9", "secondaryPlayer": "" },
+        { "order": 11, "type": "pass", "player": "p9", "secondaryPlayer": "", "count": 4 },
+        { "order": 12, "type": "dribble", "player": "p9", "secondaryPlayer": "", "count": 2 },
+        { "order": 13, "type": "save", "player": "p12", "secondaryPlayer": "", "count": 1 },
+        { "order": 14, "type": "save", "player": "p10", "secondaryPlayer": "", "count": 1 },
+        { "order": 15, "type": "save", "player": "p12", "secondaryPlayer": "", "count": 2 },
+        { "order": 16, "type": "yellow", "player": "p2", "secondaryPlayer": "" },
+        { "order": 17, "type": "goal", "player": "p9", "secondaryPlayer": "", "count": 1 },
+        { "order": 18, "type": "goal", "player": "nill", "secondaryPlayer": "", "count": 1 },
+        { "order": 19, "type": "save", "player": "p7", "secondaryPlayer": "", "count": 1 },
+        { "order": 20, "type": "red", "player": "p14", "secondaryPlayer": "" }
+      ]
+    }
+  ]
+}
