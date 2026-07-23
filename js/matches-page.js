@@ -37,7 +37,7 @@ async function init() {
           <div style="font-size:0.7rem;color:var(--text-muted)">Captain: ${getPlayerName(m.teamB.captain)}</div>
         </div>
       </div>
-      <div style="text-align:center;margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted)">${goalsCount} goal${goalsCount !== 1 ? 's' : ''} scored${m.result ? ' &middot; <span style="color:var(--danger);font-weight:700">Draw</span>' : ''}</div>
+      <div style="text-align:center;margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted)">${goalsCount} goal${goalsCount !== 1 ? 's' : ''} scored${m.result ? ' &middot; <span style="color:var(--danger);font-weight:700">' + m.result + '</span>' : ''}</div>
     </a>`;
   }).join('');
 }

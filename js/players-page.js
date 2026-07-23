@@ -43,8 +43,8 @@ function renderTable() {
       <td>${formatStat(s.goals)}</td>
       <td>${formatStat(s.assists)}</td>
       <td>${formatStat(s.saves)}</td>
-      <td>${formatStat(s.passes)}</td>
       <td>${formatStat(s.dribbles)}</td>
+      <td>${s.offsides > 0 ? `<span class="stat-neg">${s.offsides}</span>` : s.offsides}</td>
       <td>${s.yellowCards > 0 ? `<span class="stat-neg">${s.yellowCards}</span>` : s.yellowCards}</td>
       <td>${s.redCards > 0 ? `<span class="stat-neg">${s.redCards}</span>` : s.redCards}</td>
       <td class="pts-cell">${s.totalPoints}</td>

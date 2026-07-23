@@ -60,6 +60,8 @@ export function teamColor(name) {
   const colors = {
     Sholay: '#ef4444',
     Doomsday: '#3b82f6',
+    Prodigy: '#f59e0b',
+    Nagi: '#8b5cf6',
     Red: '#ef4444', Blue: '#3b82f6', Green: '#10b981', Yellow: '#f59e0b',
     Orange: '#f97316', Purple: '#8b5cf6', Black: '#374151', White: '#e5e7eb',
     Pink: '#ec4899', Cyan: '#06b6d4'

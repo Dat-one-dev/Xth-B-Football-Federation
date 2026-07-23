@@ -53,7 +53,7 @@ async function init() {
     : getInitials(player.name);
 
   const maxVals = {};
-  const statKeys = ['goals', 'assists', 'saves', 'passes', 'dribbles', 'yellowCards', 'redCards', 'totalPoints'];
+  const statKeys = ['goals', 'assists', 'saves', 'dribbles', 'offsides', 'yellowCards', 'redCards', 'totalPoints'];
   for (const k of statKeys) {
     maxVals[k] = Math.max(...allStats.map(s => s[k]), 1);
   }
@@ -94,14 +94,14 @@ async function init() {
         <div class="psm-label">Saves</div>
       </div>
       <div class="player-stat-mini">
-        <div class="psm-icon"><i class="fa-solid fa-forward"></i></div>
-        <div class="psm-value">${stats.passes}</div>
-        <div class="psm-label">Passes</div>
-      </div>
-      <div class="player-stat-mini">
         <div class="psm-icon"><i class="fa-solid fa-arrows-left-right"></i></div>
         <div class="psm-value">${stats.dribbles}</div>
         <div class="psm-label">Dribbles</div>
+      </div>
+      <div class="player-stat-mini">
+        <div class="psm-icon"><i class="fa-solid fa-flag"></i></div>
+        <div class="psm-value">${stats.offsides}</div>
+        <div class="psm-label">Offsides</div>
       </div>
     </div>`;
 
@@ -110,8 +110,8 @@ async function init() {
     { key: 'goals', label: 'Goals', icon: 'fa-futbol' },
     { key: 'assists', label: 'Assists', icon: 'fa-paper-plane' },
     { key: 'saves', label: 'Saves', icon: 'fa-shield-halved' },
-    { key: 'passes', label: 'Passes', icon: 'fa-forward' },
     { key: 'dribbles', label: 'Dribbles', icon: 'fa-arrows-left-right' },
+    { key: 'offsides', label: 'Offsides', icon: 'fa-flag' },
     { key: 'yellowCards', label: 'Yellow Cards', icon: 'fa-square' },
     { key: 'redCards', label: 'Red Cards', icon: 'fa-square' },
   ];

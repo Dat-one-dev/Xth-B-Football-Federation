@@ -746,6 +746,14 @@ tbody tr.highlight {
   font-weight: 300;
 }
 
+.match-detail-header .team-side.winner {
+  position: relative;
+}
+
+.match-detail-header .team-side.winner .team-name {
+  font-weight: 700;
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }

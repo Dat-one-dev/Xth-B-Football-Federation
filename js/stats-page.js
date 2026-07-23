@@ -30,9 +30,9 @@ async function init() {
     scorers: [...allStats].filter(s => s.goals > 0).sort((a, b) => b.goals - a.goals),
     assists: [...allStats].filter(s => s.assists > 0).sort((a, b) => b.assists - a.assists),
     saves: [...allStats].filter(s => s.saves > 0).sort((a, b) => b.saves - a.saves),
-    passes: [...allStats].filter(s => s.passes > 0).sort((a, b) => b.passes - a.passes),
     dribbles: [...allStats].filter(s => s.dribbles > 0).sort((a, b) => b.dribbles - a.dribbles),
-    cards: [...allStats].filter(s => s.yellowCards > 0 || s.redCards > 0).sort((a, b) => { if (b.redCards !== a.redCards) return b.redCards - a.redCards; return b.yellowCards - a.yellowCards; }).map(s => ({ ...s, totalCards: s.yellowCards + s.redCards })),
+    offsides: [...allStats].filter(s => s.offsides > 0).sort((a, b) => b.offsides - a.offsides),
+    cards: [...allStats].filter(s => s.yellowCards > 0 || s.redCards > 0).sort((a, b) => { const tA = a.yellowCards + a.redCards; const tB = b.yellowCards + b.redCards; if (tB !== tA) return tB - tA; return b.redCards - a.redCards; }).map(s => ({ ...s, totalCards: s.yellowCards + s.redCards })),
     ownGoals: [...allStats].filter(s => s.ownGoals > 0).sort((a, b) => b.ownGoals - a.ownGoals),
     points: [...allStats].sort((a, b) => b.totalPoints - a.totalPoints)
   };
@@ -44,10 +44,12 @@ async function init() {
     </div>
     <div class="grid-2">
       ${renderCategory('Most Saves', 'fa-shield-halved', sorted.saves, 'saves')}
-      ${renderCategory('Most Passes', 'fa-arrow-right-long', sorted.passes, 'passes')}
     </div>
     <div class="grid-2">
       ${renderCategory('Most Dribbles', 'fa-arrows-left-right', sorted.dribbles, 'dribbles')}
+      ${renderCategory('Most Offsides', 'fa-flag', sorted.offsides, 'offsides')}
+    </div>
+    <div class="grid-2">
       ${renderCategory('Most Cards', 'fa-square', sorted.cards, 'totalCards')}
     </div>
     <div class="grid-2">

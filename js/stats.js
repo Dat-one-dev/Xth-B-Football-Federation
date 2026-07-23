@@ -12,7 +12,7 @@ export async function computePlayerStats(playerId) {
 
   const stats = {
     goals: 0, assists: 0, yellowCards: 0, redCards: 0,
-    saves: 0, passes: 0, dribbles: 0, ownGoals: 0,
+    saves: 0, dribbles: 0, offsides: 0, ownGoals: 0,
     matchesPlayed: 0, totalPoints: 0
   };
 
@@ -35,8 +35,8 @@ export async function computePlayerStats(playerId) {
           case 'yellow': stats.yellowCards += n; break;
           case 'red': stats.redCards += n; break;
           case 'save': stats.saves += n; break;
-          case 'pass': stats.passes += n; break;
           case 'dribble': stats.dribbles += n; break;
+          case 'offside': stats.offsides += n; break;
           case 'ownGoal': stats.ownGoals += n; break;
         }
       }
@@ -49,8 +49,8 @@ export async function computePlayerStats(playerId) {
     stats.goals * scoring.goal +
     stats.assists * scoring.assist +
     stats.saves * scoring.save +
-    stats.passes * scoring.pass +
     stats.dribbles * scoring.dribble +
+    stats.offsides * scoring.offside +
     stats.yellowCards * scoring.yellow +
     stats.redCards * scoring.red +
     stats.ownGoals * scoring.ownGoal;
@@ -72,7 +72,7 @@ export async function computeAllPlayerStats() {
     playerStats[p.id] = {
       player: p,
       goals: 0, assists: 0, yellowCards: 0, redCards: 0,
-      saves: 0, passes: 0, dribbles: 0, ownGoals: 0,
+      saves: 0, dribbles: 0, offsides: 0, ownGoals: 0,
       matchesPlayed: 0, totalPoints: 0
     };
   }
@@ -97,8 +97,8 @@ export async function computeAllPlayerStats() {
           case 'yellow': playerStats[evt.player].yellowCards += n; break;
           case 'red': playerStats[evt.player].redCards += n; break;
           case 'save': playerStats[evt.player].saves += n; break;
-          case 'pass': playerStats[evt.player].passes += n; break;
           case 'dribble': playerStats[evt.player].dribbles += n; break;
+          case 'offside': playerStats[evt.player].offsides += n; break;
           case 'ownGoal': playerStats[evt.player].ownGoals += n; break;
         }
       }
@@ -112,8 +112,8 @@ export async function computeAllPlayerStats() {
       s.goals * scoring.goal +
       s.assists * scoring.assist +
       s.saves * scoring.save +
-      s.passes * scoring.pass +
       s.dribbles * scoring.dribble +
+      s.offsides * scoring.offside +
       s.yellowCards * scoring.yellow +
       s.redCards * scoring.red +
       s.ownGoals * scoring.ownGoal;
