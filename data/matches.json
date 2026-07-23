@@ -54,8 +54,8 @@
         "captain": "p8",
         "players": ["p8", "p4", "p10", "p12", "p17", "p5"]
       },
-      "scoreA": 6,
-      "scoreB": 3,
+      "scoreA": 5,
+      "scoreB": 4,
       "result": "Prodigy won",
       "resultNote": "",
       "officials": ["Kavyansh", "Ayush Yadav"],
@@ -122,12 +122,12 @@
         { "order": 60, "type": "save", "player": "p12", "secondaryPlayer": "", "count": 1 },
         { "order": 61, "type": "dribble", "player": "p3", "secondaryPlayer": "", "count": 3 },
         { "order": 62, "type": "offside", "player": "p1", "secondaryPlayer": "", "count": 1 },
-        { "order": 63, "type": "goal", "player": "p6", "secondaryPlayer": "p4", "count": 1 },
-        { "order": 64, "type": "assist", "player": "p4", "secondaryPlayer": "" },
+        { "order": 63, "type": "goal", "player": "p4", "secondaryPlayer": "p2", "count": 1 },
+        { "order": 64, "type": "assist", "player": "p2", "secondaryPlayer": "" },
         { "order": 65, "type": "goal", "player": "p11", "secondaryPlayer": "p2", "count": 1 },
         { "order": 66, "type": "assist", "player": "p2", "secondaryPlayer": "" },
-        { "order": 67, "type": "goal", "player": "p11", "secondaryPlayer": "p2", "count": 1 },
-        { "order": 68, "type": "assist", "player": "p2", "secondaryPlayer": "" }
+        { "order": 67, "type": "goal", "player": "p11", "secondaryPlayer": "p4", "count": 1 },
+        { "order": 68, "type": "assist", "player": "p4", "secondaryPlayer": "" }
       ]
     }
   ]
