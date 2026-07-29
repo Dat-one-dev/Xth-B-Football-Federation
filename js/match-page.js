@@ -13,9 +13,10 @@ async function init() {
     return;
   }
 
-  const [match, playersData] = await Promise.all([
+  const [match, playersData, scoring] = await Promise.all([
     getMatchById(matchId),
-    getData('players.json')
+    getData('players.json'),
+    getData('scoring.json')
   ]);
 
   if (!match) {
@@ -86,6 +87,124 @@ async function init() {
 
   document.getElementById('teamA-roster').innerHTML = renderRoster(match.teamA.players, colorA);
   document.getElementById('teamB-roster').innerHTML = renderRoster(match.teamB.players, colorB);
+
+  const rawStats = {};
+  const allPids = new Set([...match.teamA.players, ...match.teamB.players]);
+
+  allPids.forEach(pid => {
+    rawStats[pid] = { goals: 0, assists: 0, saves: 0, dribbles: 0, offsides: 0, yellows: 0, reds: 0, ownGoals: 0 };
+  });
+
+  match.events.forEach(evt => {
+    const s = rawStats[evt.player];
+    if (!s) return;
+    const count = evt.count || 1;
+    if (evt.type === 'goal') s.goals += count;
+    else if (evt.type === 'assist') s.assists += count;
+    else if (evt.type === 'save') s.saves += count;
+    else if (evt.type === 'dribble') s.dribbles += count;
+    else if (evt.type === 'offside') s.offsides += count;
+    else if (evt.type === 'yellow') s.yellows += count;
+    else if (evt.type === 'red') s.reds += count;
+    else if (evt.type === 'ownGoal') s.ownGoals += count;
+  });
+
+  function getInitials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+
+  function formatStat(val) {
+    if (val > 0) return `<span class="stat-pos">${val}</span>`;
+    if (val < 0) return `<span class="stat-neg">${val}</span>`;
+    return val;
+  }
+
+  function rankBadge(rank) {
+    if (rank <= 3) return `<span class="rank-badge-sm rank-${rank}">${rank}</span>`;
+    return `<span style="color:var(--text-muted);font-weight:600;font-size:0.75rem">${rank}</span>`;
+  }
+
+  const matchStats = [];
+  allPids.forEach(pid => {
+    const p = playersData.players.find(x => x.id === pid);
+    if (!p) return;
+    const s = rawStats[pid];
+    const pts = (s.goals * scoring.goal) + (s.assists * scoring.assist) + (s.saves * scoring.save)
+      + (s.dribbles * (scoring.dribble || 0)) + (s.offsides * (scoring.offside || 0))
+      + (s.yellows * (scoring.yellow || 0)) + (s.reds * (scoring.red || 0))
+      + (s.ownGoals * (scoring.ownGoal || 0));
+    if (pts === 0) return;
+    matchStats.push({
+      player: p,
+      matchesPlayed: 1,
+      goals: s.goals,
+      assists: s.assists,
+      saves: s.saves,
+      dribbles: s.dribbles,
+      offsides: s.offsides,
+      yellowCards: s.yellows,
+      redCards: s.reds,
+      totalPoints: pts
+    });
+  });
+
+  let sortKey = 'totalPoints';
+  let sortDir = 'desc';
+
+  function renderTable() {
+    const sorted = [...matchStats].sort((a, b) => {
+      const va = a[sortKey];
+      const vb = b[sortKey];
+      return sortDir === 'desc' ? vb - va : va - vb;
+    });
+
+    document.getElementById('match-stats-body').innerHTML = sorted.map((s, i) => {
+      const photo = s.player.photo
+        ? `<img src="${s.player.photo}" alt="${s.player.name}">`
+        : getInitials(s.player.name);
+      return `<tr onclick="window.location='player.html?id=${s.player.id}'">
+        <td><div style="display:flex;justify-content:center">${rankBadge(i + 1)}</div></td>
+        <td class="player-name-cell">
+          <div class="player-mini">
+            <div class="player-avatar-sm">${photo}</div>
+            <a href="player.html?id=${s.player.id}" class="player-name-link">${s.player.name}</a>
+          </div>
+        </td>
+        <td>${s.matchesPlayed}</td>
+        <td>${formatStat(s.goals)}</td>
+        <td>${formatStat(s.assists)}</td>
+        <td>${formatStat(s.saves)}</td>
+        <td>${formatStat(s.dribbles)}</td>
+        <td>${s.offsides > 0 ? `<span class="stat-neg">${s.offsides}</span>` : s.offsides}</td>
+        <td>${s.yellowCards > 0 ? `<span class="stat-neg">${s.yellowCards}</span>` : s.yellowCards}</td>
+        <td>${s.redCards > 0 ? `<span class="stat-neg">${s.redCards}</span>` : s.redCards}</td>
+        <td class="pts-cell">${s.totalPoints}</td>
+      </tr>`;
+    }).join('');
+
+    document.querySelectorAll('#match-stats-table thead th[data-sort]').forEach(th => {
+      const key = th.dataset.sort;
+      th.classList.remove('sorted-asc', 'sorted-desc');
+      if (key === sortKey) {
+        th.classList.add(sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+      }
+    });
+  }
+
+  renderTable();
+
+  document.querySelectorAll('#match-stats-table thead th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sort;
+      if (key === sortKey) {
+        sortDir = sortDir === 'desc' ? 'asc' : 'desc';
+      } else {
+        sortKey = key;
+        sortDir = 'desc';
+      }
+      renderTable();
+    });
+  });
 }
 
 init();

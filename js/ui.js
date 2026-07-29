@@ -64,7 +64,9 @@ export function teamColor(name) {
     Nagi: '#8b5cf6',
     Red: '#ef4444', Blue: '#3b82f6', Green: '#10b981', Yellow: '#f59e0b',
     Orange: '#f97316', Purple: '#8b5cf6', Black: '#374151', White: '#e5e7eb',
-    Pink: '#ec4899', Cyan: '#06b6d4'
+    Pink: '#ec4899', Cyan: '#06b6d4',
+    'Xth A': '#6b7280',
+    'Xth B': '#22c55e'
   };
   return colors[name] || '#6b7280';
 }

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Match Details — XBFF</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -49,6 +50,30 @@
           <div class="roster-list" id="teamB-roster"></div>
         </div>
       </div>
+    </div>
+
+    <div class="section-title" style="margin-top:2rem"><i class="fa-solid fa-chart-simple"></i> Match Stats</div>
+    <div class="table-wrapper">
+      <table class="standings-table" id="match-stats-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th class="player-name-header">Player</th>
+            <th data-sort="matchesPlayed">Matches <span class="sort-arrow"></span></th>
+            <th data-sort="goals">Goals <span class="sort-arrow"></span></th>
+            <th data-sort="assists">Assists <span class="sort-arrow"></span></th>
+            <th data-sort="saves">Saves <span class="sort-arrow"></span></th>
+            <th data-sort="dribbles">Dribbles <span class="sort-arrow"></span></th>
+            <th data-sort="offsides">Offsides <span class="sort-arrow"></span></th>
+            <th data-sort="yellowCards">Yellow <span class="sort-arrow"></span></th>
+            <th data-sort="redCards">Red <span class="sort-arrow"></span></th>
+            <th data-sort="totalPoints">Points <span class="sort-arrow"></span></th>
+          </tr>
+        </thead>
+        <tbody id="match-stats-body">
+          <tr><td colspan="11"><div class="loading">Loading...</div></td></tr>
+        </tbody>
+      </table>
     </div>
   </main>
 

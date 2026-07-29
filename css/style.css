@@ -1226,6 +1226,7 @@ tbody tr.highlight {
 .standings-table .rank-badge-sm.rank-2 { background: var(--silver); color: #000; }
 .standings-table .rank-badge-sm.rank-3 { background: var(--bronze); color: #fff; }
 
+
 /* ===== STATS TABLE (Player Profile) ===== */
 .stats-table-wrap {
   background: var(--bg-card);

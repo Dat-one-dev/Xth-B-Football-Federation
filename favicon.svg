@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <defs>
+        <!-- 3D Shading Gradient for the sphere -->
+        <radialGradient id="sphereShading" cx="30%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85" />
+            <stop offset="25%" stop-color="#ffffff" stop-opacity="0.2" />
+            <stop offset="55%" stop-color="#000000" stop-opacity="0.2" />
+            <stop offset="85%" stop-color="#000000" stop-opacity="0.65" />
+            <stop offset="100%" stop-color="#000000" stop-opacity="0.9" />
+        </radialGradient>
+        
+        <!-- Highlight Gradient -->
+        <linearGradient id="highlightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.7" />
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0" />
+        </linearGradient>
+
+        <!-- Shadow Blur -->
+        <filter id="shadowBlur" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="7" />
+        </filter>
+
+        <!-- Perfect Circular Clipping Path for the ball -->
+        <clipPath id="ballClip">
+            <circle cx="200" cy="200" r="158" />
+        </clipPath>
+    </defs>
+
+    <!-- Floor Shadows -->
+    <ellipse cx="200" cy="365" rx="125" ry="18" fill="#000000" opacity="0.3" filter="url(#shadowBlur)" />
+    <ellipse cx="200" cy="365" rx="75" ry="8" fill="#000000" opacity="0.4" filter="url(#shadowBlur)" />
+
+    <!-- Ball Content Clipped to Sphere -->
+    <g clip-path="url(#ballClip)">
+        <!-- Base White Leather -->
+        <circle cx="200" cy="200" r="158" fill="#f0f0f0" />
+
+        <!-- Panels with Stitching/Groove Effect -->
+        <g stroke="#1a1a1a" stroke-width="3.5" stroke-linejoin="round">
+            
+            <!-- White Hexagons -->
+            <polygon points="200.0,128.0 200.0,83.0 256.4,44.9 305.8,54.4 330.0,98.4 311.3,163.8 268.5,177.7" fill="#f0f0f0" />
+            <polygon points="268.5,177.7 311.3,163.8 364.9,205.8 371.2,255.6 336.8,292.2 268.8,294.6 242.3,258.2" fill="#f0f0f0" />
+            <polygon points="242.3,258.2 268.8,294.6 245.5,358.6 200.0,380.0 154.5,358.6 131.2,294.6 157.7,258.2" fill="#f0f0f0" />
+            <polygon points="157.7,258.2 131.2,294.6 63.2,292.2 28.8,255.6 35.1,205.8 88.7,163.8 131.5,177.7" fill="#f0f0f0" />
+            <polygon points="131.5,177.7 88.7,163.8 70.0,98.4 94.2,54.4 143.6,44.9 200.0,83.0 200.0,128.0" fill="#f0f0f0" />
+
+            <!-- Outer Black Pentagons (Foreshortened) -->
+            <polygon points="200.0,83.0 256.4,44.9 200.0,20.0 143.6,44.9" fill="#1f1f1f" />
+            <polygon points="311.3,163.8 364.9,205.8 371.2,144.4 330.0,98.4" fill="#1f1f1f" />
+            <polygon points="268.8,294.6 245.5,358.6 305.8,345.6 336.8,292.2" fill="#1f1f1f" />
+            <polygon points="131.2,294.6 63.2,292.2 94.2,345.6 154.5,358.6" fill="#1f1f1f" />
+            <polygon points="88.7,163.8 70.0,98.4 28.8,144.4 35.1,205.8" fill="#1f1f1f" />
+
+            <!-- Central Black Pentagon -->
+            <polygon points="200.0,128.0 268.5,177.7 242.3,258.2 157.7,258.2 131.5,177.7" fill="#1f1f1f" />
+        </g>
+    </g>
+
+    <!-- Overlay Gradient for Realistic 3D Volume -->
+    <circle cx="200" cy="200" r="158" fill="url(#sphereShading)" pointer-events="none" />
+
+    <!-- Soft Window/Glossy Reflection -->
+    <ellipse cx="145" cy="115" rx="75" ry="35" transform="rotate(-35 145 115)" fill="url(#highlightGrad)" pointer-events="none" />
+
+    <!-- Outer Edge Boundary Line to seal the clipping edge -->
+    <circle cx="200" cy="200" r="158" fill="none" stroke="#151515" stroke-width="2.5" />
+</svg>
