@@ -2,7 +2,7 @@
   "goal": 5,
   "assist": 3,
   "save": 1,
-  
+
   "dribble": 0.5,
   "offside": -0.5,
   "yellow": -2,
