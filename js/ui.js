@@ -66,7 +66,9 @@ export function teamColor(name) {
     Orange: '#f97316', Purple: '#8b5cf6', Black: '#374151', White: '#e5e7eb',
     Pink: '#ec4899', Cyan: '#06b6d4',
     'Xth A': '#6b7280',
-    'Xth B': '#22c55e'
+    'Xth B': '#22c55e',
+    Latmar: '#f43f5e',
+    'Fist guys': '#6366f1'
   };
   return colors[name] || '#6b7280';
 }
