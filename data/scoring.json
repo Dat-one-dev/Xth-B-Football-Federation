@@ -7,5 +7,6 @@
   "offside": -0.5,
   "yellow": -2,
   "red": -10,
+  "hand": -0.5,
   "ownGoal": -5
 }
