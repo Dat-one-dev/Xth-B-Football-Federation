@@ -122,7 +122,7 @@
         { "order": 60, "type": "save", "player": "p12", "secondaryPlayer": "", "count": 1 },
         { "order": 61, "type": "dribble", "player": "p3", "secondaryPlayer": "", "count": 3 },
         { "order": 62, "type": "offside", "player": "p1", "secondaryPlayer": "", "count": 1 },
-        { "order": 63, "type": "goal", "player": "p4", "secondaryPlayer": "p2", "count": 1 },
+        { "order": 63, "type": "goal", "player": "p17", "secondaryPlayer": "p2", "count": 1 },
         { "order": 64, "type": "assist", "player": "p2", "secondaryPlayer": "" },
         { "order": 65, "type": "goal", "player": "p11", "secondaryPlayer": "p2", "count": 1 },
         { "order": 66, "type": "assist", "player": "p2", "secondaryPlayer": "" },
