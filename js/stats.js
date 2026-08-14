@@ -12,7 +12,7 @@ export async function computePlayerStats(playerId) {
 
   const stats = {
     goals: 0, assists: 0, yellowCards: 0, redCards: 0,
-    saves: 0, dribbles: 0, offsides: 0, ownGoals: 0,
+    saves: 0, dribbles: 0, offsides: 0, ownGoals: 0, hands: 0,
     matchesPlayed: 0, totalPoints: 0
   };
 
@@ -38,6 +38,7 @@ export async function computePlayerStats(playerId) {
           case 'dribble': stats.dribbles += n; break;
           case 'offside': stats.offsides += n; break;
           case 'ownGoal': stats.ownGoals += n; break;
+          case 'hand': stats.hands += n; break;
         }
       }
     }
@@ -53,7 +54,8 @@ export async function computePlayerStats(playerId) {
     stats.offsides * scoring.offside +
     stats.yellowCards * scoring.yellow +
     stats.redCards * scoring.red +
-    stats.ownGoals * scoring.ownGoal;
+    stats.ownGoals * scoring.ownGoal +
+    stats.hands * scoring.hand;
 
   return { player, stats };
 }
@@ -72,7 +74,7 @@ export async function computeAllPlayerStats() {
     playerStats[p.id] = {
       player: p,
       goals: 0, assists: 0, yellowCards: 0, redCards: 0,
-      saves: 0, dribbles: 0, offsides: 0, ownGoals: 0,
+      saves: 0, dribbles: 0, offsides: 0, ownGoals: 0, hands: 0,
       matchesPlayed: 0, totalPoints: 0
     };
   }
@@ -100,6 +102,7 @@ export async function computeAllPlayerStats() {
           case 'dribble': playerStats[evt.player].dribbles += n; break;
           case 'offside': playerStats[evt.player].offsides += n; break;
           case 'ownGoal': playerStats[evt.player].ownGoals += n; break;
+          case 'hand': playerStats[evt.player].hands += n; break;
         }
       }
     }
@@ -116,7 +119,8 @@ export async function computeAllPlayerStats() {
       s.offsides * scoring.offside +
       s.yellowCards * scoring.yellow +
       s.redCards * scoring.red +
-      s.ownGoals * scoring.ownGoal;
+      s.ownGoals * scoring.ownGoal +
+      s.hands * scoring.hand;
   }
 
   return Object.values(playerStats);

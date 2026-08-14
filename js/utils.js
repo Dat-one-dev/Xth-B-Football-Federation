@@ -25,6 +25,7 @@ export function eventTypeLabel(type) {
     save: 'Save',
     dribble: 'Dribble',
     offside: 'Offside',
+    hand: 'Hand',
     ownGoal: 'Own Goal'
   };
   return map[type] || type;
@@ -39,6 +40,7 @@ export function eventTypeIcon(type) {
     save: 'fa-shield-halved',
     dribble: 'fa-arrows-left-right',
     offside: 'fa-flag',
+    hand: 'fa-hand',
     ownGoal: 'fa-triangle-exclamation'
   };
   return map[type] || 'fa-circle';
@@ -56,6 +58,7 @@ export function statIcon(stat) {
     saves: 'fa-shield-halved',
     dribbles: 'fa-arrows-left-right',
     offsides: 'fa-flag',
+    hands: 'fa-hand',
     yellowCards: 'fa-square',
     redCards: 'fa-square',
     ownGoals: 'fa-triangle-exclamation',

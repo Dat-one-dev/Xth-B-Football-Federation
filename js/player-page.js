@@ -53,7 +53,7 @@ async function init() {
     : getInitials(player.name);
 
   const maxVals = {};
-  const statKeys = ['goals', 'assists', 'saves', 'dribbles', 'offsides', 'yellowCards', 'redCards', 'totalPoints'];
+  const statKeys = ['goals', 'assists', 'saves', 'dribbles', 'offsides', 'hands', 'yellowCards', 'redCards', 'totalPoints'];
   for (const k of statKeys) {
     maxVals[k] = Math.max(...allStats.map(s => s[k]), 1);
   }
@@ -103,6 +103,11 @@ async function init() {
         <div class="psm-value">${stats.offsides}</div>
         <div class="psm-label">Offsides</div>
       </div>
+      <div class="player-stat-mini">
+        <div class="psm-icon"><i class="fa-solid fa-hand"></i></div>
+        <div class="psm-value">${stats.hands}</div>
+        <div class="psm-label">Hands</div>
+      </div>
     </div>`;
 
   const barStats = [
@@ -112,6 +117,7 @@ async function init() {
     { key: 'saves', label: 'Saves', icon: 'fa-shield-halved' },
     { key: 'dribbles', label: 'Dribbles', icon: 'fa-arrows-left-right' },
     { key: 'offsides', label: 'Offsides', icon: 'fa-flag' },
+    { key: 'hands', label: 'Hands', icon: 'fa-hand' },
     { key: 'yellowCards', label: 'Yellow Cards', icon: 'fa-square' },
     { key: 'redCards', label: 'Red Cards', icon: 'fa-square' },
   ];
