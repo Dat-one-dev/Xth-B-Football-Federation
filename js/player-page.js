@@ -148,9 +148,9 @@ async function init() {
   matchesContainer.innerHTML = matches.map(m => {
     const colorA = teamColor(m.teamA.name);
     const colorB = teamColor(m.teamB.name);
-    const playerEvents = m.events.filter(e => e.player === playerId || e.secondaryPlayer === playerId);
-    const goals = playerEvents.filter(e => e.type === 'goal').length;
-    const assists = playerEvents.filter(e => e.type === 'assist').length;
+    const playerEvents = m.events.filter(e => e.player === playerId);
+    const goals = playerEvents.filter(e => e.type === 'goal').reduce((sum, e) => sum + (e.count || 1), 0);
+    const assists = playerEvents.filter(e => e.type === 'assist').reduce((sum, e) => sum + (e.count || 1), 0);
 
     let extra = '';
     if (goals > 0) extra += `<span style="color:var(--success)"><i class="fa-solid fa-futbol"></i> ${goals} </span>`;
