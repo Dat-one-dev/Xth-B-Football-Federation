@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Match Maker — XBFF</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand"><i class="fa-solid fa-futbol"></i> XBFF</a>
+    <ul class="nav-links">
+      <li><a href="index.html" data-page="home"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="players.html" data-page="players"><i class="fa-solid fa-users"></i> Players</a></li>
+      <li><a href="matches.html" data-page="matches"><i class="fa-solid fa-calendar"></i> Matches</a></li>
+      <li><a href="statistics.html" data-page="stats"><i class="fa-solid fa-chart-line"></i> Statistics</a></li>
+      <li><a href="awards.html" data-page="awards"><i class="fa-solid fa-medal"></i> Awards</a></li>
+      <li><a href="matchmaker.html" data-page="matchmaker"><i class="fa-solid fa-shuffle"></i> Match Maker</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1><i class="fa-solid fa-shuffle"></i> Match Maker</h1>
+      <p>Select who's playing today, roll fair teams</p>
+    </div>
+
+    <section class="matchmaker-section">
+      <div class="mm-head">
+        <h2><i class="fa-solid fa-user-check"></i> Players Playing Today</h2>
+        <span id="mm-count" class="mm-count">0 selected</span>
+      </div>
+      <div class="mm-player-grid" id="mm-players">
+        <div class="loading">Loading...</div>
+      </div>
+      <div class="mm-actions">
+        <button id="mm-make" class="mm-btn" disabled><i class="fa-solid fa-wand-magic-sparkles"></i> Make Match</button>
+        <button id="mm-reset" class="mm-btn mm-btn-ghost"><i class="fa-solid fa-rotate-left"></i> Clear</button>
+      </div>
+    </section>
+
+    <section class="matchmaker-section" id="mm-result" style="display:none">
+      <div class="mm-head">
+        <h2><i class="fa-solid fa-people-group"></i> Generated Teams</h2>
+        <div class="mm-actions mm-actions-inline">
+          <button id="mm-reroll" class="mm-btn"><i class="fa-solid fa-dice"></i> Roll Again</button>
+        </div>
+      </div>
+      <div class="grid-2" id="mm-teams"></div>
+      <div class="mm-fairness" id="mm-fairness-note"></div>
+    </section>
+
+    <section class="matchmaker-section">
+      <div class="mm-head">
+        <h2><i class="fa-solid fa-scale-balanced"></i> How It Stays Fair</h2>
+      </div>
+      <div class="grid-2 mm-algo-grid">
+        <div class="mm-algo-card">
+          <i class="fa-solid fa-dice icon"></i>
+          <h3>1. Fisher-Yates Shuffle</h3>
+          <p>Every roll starts with a pure random shuffle of the selected players, so no two rolls are ever the same.</p>
+        </div>
+        <div class="mm-algo-card">
+          <i class="fa-solid fa-gauge-high icon"></i>
+          <h3>2. Skill Power Rating</h3>
+          <p>Each player is rated by <b>points per match</b> from real season stats, so a proven scorer weighs more than a one-match wonder.</p>
+        </div>
+        <div class="mm-algo-card">
+          <i class="fa-solid fa-shield icon"></i>
+          <h3>3. Noise Handicap</h3>
+          <p>Each rating gets a &plusmn;12% random jitter before drafting &mdash; still random, but strong players can't fully dodge their strength.</p>
+        </div>
+        <div class="mm-algo-card">
+          <i class="fa-solid fa-arrows-turn-to-dots icon"></i>
+          <h3>4. Snake Draft Balance</h3>
+          <p>Strongest pick goes to Team 1, next two to Team 2, next two to Team 1&hellip; alternating like a real draft, keeping team power nearly equal.</p>
+        </div>
+        <div class="mm-algo-card">
+          <i class="fa-solid fa-hand-holding-medical icon"></i>
+          <h3>5. Keeper Split</h3>
+          <p>The top goalkeepers (best saves per match) are spread across both teams so one side never ends up keeper-less.</p>
+        </div>
+        <div class="mm-algo-card">
+          <i class="fa-solid fa-crown icon"></i>
+          <h3>6. Captain Auto-Select</h3>
+          <p>The highest rated player on each team automatically becomes the captain.</p>
+        </div>
+        <div class="mm-algo-card">
+          <i class="fa-solid fa-scale-balanced icon"></i>
+          <h3>7. Fairness Swap Pass</h3>
+          <p>Small pairwise trades are tried until the two teams' total power sits within 8% of each other &mdash; the safety net that catches any bad roll.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>XBFF</p>
+  </footer>
+
+  <script type="module" src="js/matchmaker.js"></script>
+</body>
+</html>

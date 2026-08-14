@@ -1517,3 +1517,216 @@ tbody tr.highlight {
   margin-right: 0.4rem;
   color: var(--accent-blue);
 }
+
+/* ===== MATCH MAKER ===== */
+.matchmaker-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.mm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.mm-head h2 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.mm-head h2 i {
+  margin-right: 0.4rem;
+  color: var(--accent-blue);
+}
+
+.mm-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+}
+
+.mm-player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.mm-player-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.mm-player-chip:hover {
+  border-color: var(--accent-blue);
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.mm-player-chip.selected {
+  border-color: var(--accent-blue);
+  background: rgba(59, 130, 246, 0.14);
+  box-shadow: 0 0 0 1px var(--accent-blue);
+}
+
+.mm-player-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.mm-actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.mm-actions-inline {
+  justify-content: flex-end;
+}
+
+.mm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.mm-btn:hover:not(:disabled) {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.mm-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.mm-btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.mm-btn-ghost:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+.mm-team-card {
+  border: 1px solid var(--border-color);
+  border-top: 3px solid;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.mm-team-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mm-team-power {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.mm-team-roster {
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem 1.2rem 1rem;
+}
+
+.mm-team-roster li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.45rem 0;
+  font-size: 0.95rem;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.mm-team-roster li:last-child {
+  border-bottom: none;
+}
+
+.mm-team-roster li.mm-captain {
+  font-weight: 700;
+}
+
+.mm-roster-power {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.mm-fairness {
+  margin-top: 1.2rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.mm-fairness i {
+  margin-right: 0.4rem;
+}
+
+.mm-algo-grid {
+  margin-bottom: 0;
+}
+
+.mm-algo-card {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.mm-algo-card .icon {
+  font-size: 1.25rem;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+}
+
+.mm-algo-card h3 {
+  font-size: 0.95rem;
+  margin: 0 0 0.35rem;
+}
+
+.mm-algo-card p {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
