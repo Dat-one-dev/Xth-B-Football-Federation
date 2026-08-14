@@ -65,10 +65,14 @@ export function teamColor(name) {
     Red: '#ef4444', Blue: '#3b82f6', Green: '#10b981', Yellow: '#f59e0b',
     Orange: '#f97316', Purple: '#8b5cf6', Black: '#374151', White: '#e5e7eb',
     Pink: '#ec4899', Cyan: '#06b6d4',
-    'Xth A': '#6b7280',
+    'Xth A': '#14b8a6',
     'Xth B': '#22c55e',
     Latmar: '#f43f5e',
-    'Fist guys': '#6366f1'
+    'Fist guys': '#6366f1',
+    'Team A': '#06b6d4',
+    'Team B': '#f97316',
+    'Team Kartik': '#d946ef',
+    'Team Arjun': '#84cc16'
   };
   return colors[name] || '#6b7280';
 }
