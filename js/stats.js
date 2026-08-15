@@ -13,7 +13,7 @@ export async function computePlayerStats(playerId) {
   const stats = {
     goals: 0, assists: 0, yellowCards: 0, redCards: 0,
     saves: 0, dribbles: 0, offsides: 0, ownGoals: 0, hands: 0,
-    matchesPlayed: 0, totalPoints: 0
+    matchesPlayed: 0, totalPoints: 0, wins: 0, losses: 0, winrate: 0
   };
 
   const matchSet = new Set();
@@ -24,6 +24,13 @@ export async function computePlayerStats(playerId) {
 
     if (inTeamA || inTeamB) {
       matchSet.add(match.id);
+      if (match.scoreA > match.scoreB) {
+        if (inTeamA) stats.wins++;
+        else stats.losses++;
+      } else if (match.scoreB > match.scoreA) {
+        if (inTeamB) stats.wins++;
+        else stats.losses++;
+      }
     }
 
     for (const evt of match.events) {
@@ -45,6 +52,7 @@ export async function computePlayerStats(playerId) {
   }
 
   stats.matchesPlayed = matchSet.size;
+  stats.winrate = stats.matchesPlayed ? (stats.wins / stats.matchesPlayed) * 100 : 0;
 
   stats.totalPoints =
     stats.goals * scoring.goal +
@@ -75,11 +83,13 @@ export async function computeAllPlayerStats() {
       player: p,
       goals: 0, assists: 0, yellowCards: 0, redCards: 0,
       saves: 0, dribbles: 0, offsides: 0, ownGoals: 0, hands: 0,
-      matchesPlayed: 0, totalPoints: 0
+      matchesPlayed: 0, totalPoints: 0, wins: 0, losses: 0, winrate: 0
     };
   }
 
   const matchCounts = {};
+  const winsCount = {};
+  const lossesCount = {};
 
   for (const match of matches.matches) {
     const allPlayers = [...match.teamA.players, ...match.teamB.players];
@@ -87,6 +97,14 @@ export async function computeAllPlayerStats() {
     for (const pid of allPlayers) {
       if (playerStats[pid]) {
         matchCounts[pid] = (matchCounts[pid] || 0) + 1;
+        const inA = match.teamA.players.includes(pid);
+        if (match.scoreA > match.scoreB) {
+          if (inA) winsCount[pid] = (winsCount[pid] || 0) + 1;
+          else lossesCount[pid] = (lossesCount[pid] || 0) + 1;
+        } else if (match.scoreB > match.scoreA) {
+          if (inA) lossesCount[pid] = (lossesCount[pid] || 0) + 1;
+          else winsCount[pid] = (winsCount[pid] || 0) + 1;
+        }
       }
     }
 
@@ -111,6 +129,9 @@ export async function computeAllPlayerStats() {
   for (const pid of Object.keys(playerStats)) {
     const s = playerStats[pid];
     s.matchesPlayed = matchCounts[pid] || 0;
+    s.wins = winsCount[pid] || 0;
+    s.losses = lossesCount[pid] || 0;
+    s.winrate = s.matchesPlayed ? (s.wins / s.matchesPlayed) * 100 : 0;
     s.totalPoints =
       s.goals * scoring.goal +
       s.assists * scoring.assist +
@@ -133,7 +154,7 @@ export async function getLeaderboard() {
 
 export async function getTopScorers() {
   const allStats = await computeAllPlayerStats();
-  return allStats.sort((a, b) => b.goals - a.goals).filter(s => s.goals > 0);
+  return allStats.sort((a, b) => b.goals - a.goals || b.totalPoints - a.totalPoints).filter(s => s.goals > 0);
 }
 
 export async function getTopAssists() {

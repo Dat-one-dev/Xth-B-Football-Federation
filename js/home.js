@@ -16,7 +16,7 @@ async function init() {
   const matches = matchesData.matches.sort((a, b) => new Date(b.date) - new Date(a.date));
   const totalGoals = allStats.reduce((s, p) => s + p.goals, 0);
   const totalMatches = matches.length;
-  const topScorer = [...allStats].sort((a, b) => b.goals - a.goals)[0];
+  const topScorer = [...allStats].sort((a, b) => b.goals - a.goals || b.totalPoints - a.totalPoints)[0];
 
   document.getElementById('overview-stats').innerHTML = [
     { icon: 'fa-futbol', value: totalGoals, label: 'Goals Scored' },

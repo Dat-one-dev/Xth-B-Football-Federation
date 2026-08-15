@@ -8,7 +8,7 @@ async function init() {
   const allStats = await computeAllPlayerStats();
 
   const sorted = [...allStats].sort((a, b) => b.totalPoints - a.totalPoints);
-  const byGoals = [...allStats].filter(s => s.goals > 0).sort((a, b) => b.goals - a.goals);
+  const byGoals = [...allStats].filter(s => s.goals > 0).sort((a, b) => b.goals - a.goals || b.totalPoints - a.totalPoints);
   const byAssists = [...allStats].filter(s => s.assists > 0).sort((a, b) => b.assists - a.assists);
   const bySaves = [...allStats].filter(s => s.saves > 0).sort((a, b) => b.saves - a.saves);
   const fairPlay = [...allStats]

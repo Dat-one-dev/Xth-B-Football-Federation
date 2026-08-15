@@ -19,6 +19,11 @@ function formatStat(val) {
   return val;
 }
 
+function formatWinrate(s) {
+  if (!s.matchesPlayed) return '-';
+  return `${s.winrate.toFixed(1)}%`;
+}
+
 function renderTable() {
   const sorted = [...allStats].sort((a, b) => {
     const va = a[sortKey];
@@ -39,8 +44,9 @@ function renderTable() {
           <a href="player.html?id=${s.player.id}" class="player-name-link">${s.player.name}</a>
         </div>
       </td>
-      <td>${s.matchesPlayed}</td>
-      <td>${formatStat(s.goals)}</td>
+       <td>${s.matchesPlayed}</td>
+       <td>${formatWinrate(s)}</td>
+       <td>${formatStat(s.goals)}</td>
       <td>${formatStat(s.assists)}</td>
       <td>${formatStat(s.saves)}</td>
       <td>${formatStat(s.dribbles)}</td>
